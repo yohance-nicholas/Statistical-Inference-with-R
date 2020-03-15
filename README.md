@@ -1,19 +1,8 @@
----
-title: "Statistical Inference Course Project"
-author: "Yohance Nicholas"
-date: "3/15/2020"
-output:
-  pdf_document: default
-  html_document:
-    df_print: paged
----
+# Statistical Inference Course Project
+## Prepared by Yohance Nicholas
+## Date: 03/15/2020
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-# Introduction
-
+# Overview
 This project was completed in partial fulfilment of the Statistical Inference Course which comprises one of the five courses necessary for the Data Science: Statistics and Machine Learning Specialization offered by Johns Hopikins University through Coursera.
 
 This project consists of two parts:
