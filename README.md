@@ -64,7 +64,7 @@ The second portion of the project requires an analysis of the ToothGrowth data i
 
 In addition to this readme file, the repository contains the following files:
 
-* [1_simulation_exercise.pdf](https://docs.google.com/spreadsheets/d/1avGWWl1J19O_Zm0NGTGy2E-fOG05i4ljRfjl87P7FiA/htmlview?ts=5e5e9222&sle=true#gid=0)
-* 1_simulation_exercise.Rmd
-* 2_inferential_data_analysis.pdf
-* 2_inferential_data_analysis.Rmd
+* [1_simulation_exercise.pdf](https://github.com/yohance-nicholas/Statistical-Inference-with-R/blob/master/1_simulation_exercise.pdf)
+* [1_simulation_exercise.Rmd](https://github.com/yohance-nicholas/Statistical-Inference-with-R/blob/master/1_simulation_exercise.Rmd)
+* [2_inferential_data_analysis.pdf](https://github.com/yohance-nicholas/Statistical-Inference-with-R/blob/master/2_inferential_data_analysis.pdf)
+* [2_inferential_data_analysis.Rmd](https://github.com/yohance-nicholas/Statistical-Inference-with-R/blob/master/2_inferential_data_analysis.Rmd)
