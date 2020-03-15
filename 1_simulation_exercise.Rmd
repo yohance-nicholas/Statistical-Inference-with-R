@@ -1,0 +1,119 @@
+---
+title: 'Part 1: Simulation Exercise - A Comparison of the Exponential Distribution
+  in R with the Central Limit Theorem'
+author: "Yohance Nicholas"
+date: "3/15/2020"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+# Overview
+Asymptotics are an important topics in statistics. Asymptotics refers to the behaviour of estimators as the sample size goes to infinity. Our very notion of probability depends on the idea of asymptotics. Central to probability theory is the Central Limit Theorem (CLT). The central limit theorem  establishes that, in some situations, when independent random variables are added, their properly normalized sum tends toward a normal distribution (informally a "bell curve") even if the original variables themselves are not normally distributed. This helps us create robust strategies for creating statistical inferences when we're not willing to assume much about the generating mechanism of our data.
+
+The first part of this coursework project challenges candidates to put their skills learned into practice in comparing the Exponential Distribution in R with the Central Limit Theorem. In order to do this, candidates must perform simulations using a Lambda of 0.2 and comparing it to the distribution of averages of 40 exponentials with 1,000 simulations.
+
+# Simulations
+In order to perform the required simulations, one must first set values for the following simulation variables:
+
+* The number of simulations to be performed,
+* The Seed,
+* The Lambda value, and 
+* the number of exponentials.
+
+```{r}
+set.seed(868)
+lambda <-  0.2
+exponentials <-  40
+simulations <- 1:1000
+```
+
+With these arguments defined, one can run the Simulations 
+```{r}
+simulated_population <- data.frame(x = sapply(simulations, 
+                                              function(x) {mean(rexp(exponentials, lambda))}))
+```
+
+The averages of 40 Exponentials over 1,000 Simulations are depicted with the assistance of the histogram in Figure 1 below.
+```{r}
+library(ggplot2)
+ggplot(simulated_population, aes(x=x)) + 
+  geom_histogram(aes(y=..count.., fill=..count..)) +
+  labs(title="Figure 1: Histogram for Averages of 40 Exponentials over 1000 Simulations", 
+       y="Frequency", 
+       x="Mean")
+```
+
+# Sample Mean versus Theoretical Mean
+## Sample Mean
+Calculating the mean from the simulations with give the sample mean.
+```{r}
+sample_mean <- mean(simulated_population$x)
+sample_mean
+```
+
+## Theoretical Mean
+The theoretical mean of an exponential distribution is lambda^-1.
+```{r}
+theoretical_mean <- lambda^-1
+theoretical_mean
+```
+
+## Comparison
+Only marginal differences exist between the simulations sample mean and the 
+exponential distribution theoretical mean.
+```{r}
+cbind(sample_mean, theoretical_mean)
+t.test(simulated_population$x)[4]
+```
+
+# Sample Variance versus Theoretical Variance
+## Sample Variance
+Calculating the variance from the simulation means with give the sample
+variance.
+```{r}
+sample_variance <- var(simulated_population$x)
+sample_variance
+```
+
+## Theoretical Variance
+The theoretical variance of an exponential distribution is 
+(lambda * sqrt(n))^-2)
+```{r}
+theoretical_variance <- (lambda * sqrt(exponentials))^-2
+theoretical_variance 
+```
+
+## Comparison
+There is only a slight difference between the simulations sample variance and 
+the exponential distribution theoretical variance.
+```{r}
+cbind(sample_variance, theoretical_variance)
+abs(var(simulated_population$x)-(lambda * sqrt(exponentials))^-2)
+```
+
+
+# Distribution
+With a view to compare the theoretical and sample distributions, Figure 2 depicts the density histogram of 1,000 simulations with an overlay of the theoretical with an overlay of the
+normal distribution that has a mean of lambda^-1 and standard deviation of 
+lambda*sqrt(n))^-1, the theoretical normal distribution for the simulations.
+```{r}
+distribution_plot <- ggplot(simulated_population, aes(x=x)) +
+  geom_histogram(aes(y=..density.., fill=..density..)) +
+  labs(title="Figure 2: Histogram of Averages of 40 Exponentials over 1,000 Simulations", 
+       y="Density", 
+       x="Mean") + 
+  geom_density(colour="blue") +
+  geom_vline(xintercept = sample_mean, 
+             colour="blue", 
+             linetype="dashed") +
+  geom_vline(xintercept = theoretical_mean, 
+             colour="red", 
+             linetype="dashed") + 
+  stat_function(fun = dnorm,
+                args=list(mean = 1/lambda, 
+                          sd= sqrt(theoretical_variance)),
+                color = "red")
+distribution_plot
+```
